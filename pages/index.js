@@ -4,13 +4,30 @@ import styles from '../styles/Home.module.css'
 import {LINKS} from "../API";
 import Link from "next/link";
 import {Header} from "../header";
+import {useEffect} from "react";
+
+
+
+
+
+const search ="https://www.googleapis.com/youtube/v3/search/" +
+    "?type=video&maxResults=25" +
+    "&eventType=upcoming" +
+    "&part=snippet" +
+    "&key=AIzaSyAvCt91PvL80P_y8FxgVHewi6-FycxFrcQ" +
+    "&channelId=UCSKhDO79MNcX4pIIRFD0UVg"
 
 export default function Home({data ,request}) {
  const link1="PLzxP01GQMpjfmHzXVubKSlviqL-2AL6lV"
     const link2="PLzxP01GQMpjdN1HvcdgFW00fLMx8XCN8F"
+useEffect(()=>{
+    fetch(search).then(d=>d.json()).then((e)=>{
+        console.log(e)
+    })
+    console.log(search)
+},[])
 
-
-
+    console.log(data)
 
   return (
     <div className={styles.container}>
@@ -21,7 +38,6 @@ export default function Home({data ,request}) {
             {data.items.map(({ id, snippet = {} }) => {
                 const { title, thumbnails = {}, resourceId = {} } = snippet;
                 const { medium } = thumbnails;
-                console.log(resourceId.videoId)
                 return (
                     <div key={id} className={styles.card}>
                         {/*<a href={`https://www.youtube.com/watch?v=${resourceId.videoId}`}>*/}
